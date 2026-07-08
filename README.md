@@ -924,7 +924,3 @@ Open `FRAUD_ANALYTICS.xlsx` → start at the `About` sheet for context, then `Fr
 [GitHub](https://github.com/AakritiBalachandran)
 
 ---
-
-## 📄 License
-
-This project is shared for portfolio and educational purposes. Feel free to fork and adapt with attribution.
