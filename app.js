@@ -11,18 +11,18 @@
    CONFIG
    --------------------------------------------------------- */
 const DATA = {
-  fraudPatterns: 'data/fraud_patterns.csv',
-  q1: 'data/q1_resource_efficiency.csv',
-  q2: 'data/q2_yoy_evolution.csv',
-  q3: 'data/q3_synthetic_identity.csv',
-  q4: 'data/q4_money_mule.csv',
-  q5: 'data/q5_ring_contagion.csv',
-  q6: 'data/q6_cross_subsidy.csv',
-  q7: 'data/q7_attack_window.csv',
-  q8: 'data/q8_response_lag.csv',
-  q9: 'data/q9_precrime_drift.csv',
-  q10: 'data/q10_pattern_evolution.csv',
-  heatmap: 'data/hourly_heatmap.json',
+  fraudPatterns: 'fraud_patterns.csv',
+  q1: 'q1_resource_efficiency.csv',
+  q2: 'q2_yoy_evolution.csv',
+  q3: 'q3_synthetic_identity.csv',
+  q4: 'q4_money_mule.csv',
+  q5: 'q5_ring_contagion.csv',
+  q6: 'q6_cross_subsidy.csv',
+  q7: 'q7_attack_window.csv',
+  q8: 'q8_response_lag.csv',
+  q9: 'q9_precrime_drift.csv',
+  q10: 'q10_pattern_evolution.csv',
+  heatmap: 'hourly_heatmap.json',
 };
 
 const FRAUD_TYPES = [
