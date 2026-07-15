@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fraud Intel — Multi-Pattern Fraud Detection Case File</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<a href="#overview" class="skip-link">Skip to content</a>
+
+<div class="boot-overlay" id="boot-overlay">
+  <div class="boot-mark"><span class="dot"></span>FRAUD INTEL</div>
+  <div class="boot-status" id="boot-status">Loading 1,000,000 transactions…</div>
+  <div class="boot-bar"><div class="boot-bar-fill" id="boot-bar-fill"></div></div>
+</div>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><span class="dot"></span>FRAUD INTEL</div>
+      <div class="brand-sub">Multi-pattern fraud detection<br>10-query SQL case file · 2022–2024</div>
+    </div>
+
+    <nav class="nav-scroll" id="nav-scroll">
+      <div class="nav-section-label">Briefing</div>
+      <div class="nav-item" data-target="overview"><span class="nav-tag">00</span><span class="nav-label">Overview<span class="nav-desc">Portfolio &amp; risk summary</span></span></div>
+
+      <div class="nav-section-label">Case Queries</div>
+      <div class="nav-item" data-target="q1"><span class="nav-tag">01</span><span class="nav-label">Resource Allocation<span class="nav-desc">Under vs. over-policed patterns</span></span></div>
+      <div class="nav-item" data-target="q2"><span class="nav-tag">02</span><span class="nav-label">YoY Evolution<span class="nav-desc">Are attacks getting smarter?</span></span></div>
+      <div class="nav-item" data-target="q3"><span class="nav-tag">03</span><span class="nav-label">Synthetic Identity<span class="nav-desc">Fabricated-identity scoring</span></span></div>
+      <div class="nav-item" data-target="q4"><span class="nav-tag">04</span><span class="nav-label">Money Mule / AML<span class="nav-desc">SAR filing candidates</span></span></div>
+      <div class="nav-item" data-target="q5"><span class="nav-tag">05</span><span class="nav-label">Ring Contagion<span class="nav-desc">Speed of fraud ring spread</span></span></div>
+      <div class="nav-item" data-target="q6"><span class="nav-tag">06</span><span class="nav-label">Cross-Subsidy<span class="nav-desc">Fraud tax by customer segment</span></span></div>
+      <div class="nav-item" data-target="q7"><span class="nav-tag">07</span><span class="nav-label">Attack Window<span class="nav-desc">The perfect fraud recipe</span></span></div>
+      <div class="nav-item" data-target="q8"><span class="nav-tag">08</span><span class="nav-label">Response Lag Cost<span class="nav-desc">$ cost of investigation delay</span></span></div>
+      <div class="nav-item" data-target="q9"><span class="nav-tag">09</span><span class="nav-label">Pre-Crime Drift<span class="nav-desc">Early warning candidates</span></span></div>
+      <div class="nav-item" data-target="q10"><span class="nav-tag">10</span><span class="nav-label">Pattern Evolution<span class="nav-desc">Which fraud teaches the rest?</span></span></div>
+    </nav>
+
+    <div class="sidebar-foot">Done by: Aakriti<br>Mail Id: aakriti.9703@gmail.com<br>contact number: 8210646078<br> <div><a href="https://github.com/AakritiBalachandran" target="_blank" rel="noopener">GitHub_Profile</a></div></div> 
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="9.5" y1="4" x2="9.5" y2="20"/></svg>
+        </button>
+        <div class="topbar-title">Case File / <strong id="topbar-current">Overview</strong></div>
+        <div class="topbar-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="quick-jump" placeholder="Jump to a case query…" autocomplete="off">
+          <kbd>/</kbd>
+        </div>
+      </div>
+      <div class="filter-bar" id="filter-bar">
+        <span class="filter-label">Fraud type</span>
+        <!-- pills injected by JS -->
+        <button class="filter-reset" id="filter-reset" title="Clear the fraud-type filter">Reset</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ OVERVIEW ============ -->
+      <section class="section" id="overview">
+        <div class="hero-overview">
+          <div class="eyebrow">Executive briefing</div>
+          <h1>Ten SQL investigations into how fraud actually moves through a financial platform.</h1>
+          <p class="lede">Built on 1,000,000 transactions across 50,000 accounts, 2022–2024. Each query below answers one operational question a fraud, risk, or product team would actually ask — resourcing, contagion speed, cross-subsidy, and early-warning signal — with a verdict a decision-maker can act on directly.</p>
+        </div>
+
+        <div class="kpi-row" id="overview-kpis"></div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <div class="panel-title">Fraud loss share by pattern <span id="overview-donut-note" class="mono" style="font-size:10.5px;"></span></div>
+            <div class="chart-wrap"><canvas id="chart-overview-donut"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Attack density — hour of day × day of week</div>
+            <div class="chart-wrap" id="heatmap-wrap"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Fraud pattern reference table</div>
+          <div class="table-scroll">
+            <table class="data-table" id="table-fraud-patterns"></table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Jump to a case query</div>
+          <div class="q-index-grid" id="q-index-grid"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q1 ============ -->
+      <section class="section" id="q1">
+        <div class="case-header"><span class="case-num">CASE 01</span><h2>Which fraud types are bleeding us silently while our team wastes resources over-policing low-loss patterns?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>If <strong>resource_efficiency_gap</strong> is highly positive, the fraud team is under-resourced against the most damaging attack types. A negative gap means budget is wasted on low-loss patterns — this drives strategic reallocation of fraud controls.</div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <div class="panel-title">Share of fraud volume vs. share of fraud loss</div>
+            <div class="chart-wrap"><canvas id="chart-q1-bars"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Resource efficiency gap (loss share − volume share)</div>
+            <div class="chart-wrap"><canvas id="chart-q1-gap"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Full result set</div>
+          <div class="table-scroll"><table class="data-table" id="table-q1"></table></div>
+        </div>
+      </section>
+
+      <!-- ============ Q2 ============ -->
+      <section class="section" id="q2">
+        <div class="case-header"><span class="case-num">CASE 02</span><h2>Year-over-year, are fraud attacks becoming faster, larger in value, and better at disguising themselves as normal customer behaviour?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>A rising <strong>behavioural_disguise_score</strong> trending toward 1.0 means fraudsters are learning to mimic customers. If <strong>pct_bypassing_2fa</strong> rises year-on-year, authentication controls are being systematically compromised.</div>
+
+        <div class="panel" style="margin-top:22px;">
+          <div class="panel-title">
+            <span>Metric trend by year</span>
+            <select class="select-input" id="q2-metric-select"></select>
+          </div>
+          <div class="chart-wrap tall"><canvas id="chart-q2-trend"></canvas></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Full result set — all metrics, all patterns</div>
+          <div class="table-scroll"><table class="data-table" id="table-q2"></table></div>
+        </div>
+      </section>
+
+      <!-- ============ Q3 ============ -->
+      <section class="section" id="q3">
+        <div class="case-header"><span class="case-num">CASE 03</span><h2>Can we identify accounts built from fabricated or stolen identity fragments by scoring behavioural impossibilities no legitimate customer would exhibit?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>Real customers are creatures of habit — same categories, same geography, same devices. Synthetic identities show impossible diversity for their account age. This builds a Synthetic Identity Suspicion Score, 0–100.</div>
+
+        <div class="kpi-row" id="q3-kpis" style="margin-top:22px;"></div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">Verdict distribution</div>
+            <div id="q3-dist"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Suspicion score vs. actual fraud outcome</div>
+            <div class="chart-wrap"><canvas id="chart-q3-scatter"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Scored accounts — 50,000 rows</div>
+          <div class="table-toolbar">
+            <input class="search-input" id="q3-search" placeholder="Search account ID or country…">
+            <select class="select-input" id="q3-verdict-filter"></select>
+          </div>
+          <div class="table-scroll"><table class="data-table" id="table-q3"></table></div>
+          <div class="pagination" id="pg-q3"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q4 ============ -->
+      <section class="section" id="q4">
+        <div class="case-header"><span class="case-num">CASE 04</span><h2>Which accounts show the classic money-mule behavioural signature — foreign inflows, nocturnal activity, threshold structuring, velocity bursts — making them SAR candidates?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>Transaction structuring (amounts of $990–999, $4,990–4,999, $9,990–9,999) is a deliberate strategy to evade regulatory reporting thresholds. Accounts flagged here are potential Suspicious Activity Report filing candidates.</div>
+
+        <div class="kpi-row" id="q4-kpis" style="margin-top:22px;"></div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">AML verdict distribution</div>
+            <div id="q4-dist"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Mule suspicion score by account type</div>
+            <div class="chart-wrap"><canvas id="chart-q4-box"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Scored accounts — 45,700 rows</div>
+          <div class="table-toolbar">
+            <input class="search-input" id="q4-search" placeholder="Search account ID or country…">
+            <select class="select-input" id="q4-verdict-filter"></select>
+          </div>
+          <div class="table-scroll"><table class="data-table" id="table-q4"></table></div>
+          <div class="pagination" id="pg-q4"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q5 ============ -->
+      <section class="section" id="q5">
+        <div class="case-header"><span class="case-num">CASE 05</span><h2>After the first account in a fraud ring is detected, what is the contagion speed to connected accounts — and how many days does the investigations team have to quarantine the ring?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>This models fraud spread like an epidemiologist models a virus. If the replication speed is under 3 days, the investigations team cannot manually respond fast enough — the ring needs automated suppression.</div>
+
+        <div class="kpi-row" id="q5-kpis" style="margin-top:22px;"></div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">Response priority distribution</div>
+            <div id="q5-dist"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Ring size vs. days to full spread</div>
+            <div class="chart-wrap"><canvas id="chart-q5-scatter"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">All 200 detected rings</div>
+          <div class="table-toolbar">
+            <input class="search-input" id="q5-search" placeholder="Search ring or seed account…">
+            <select class="select-input" id="q5-priority-filter"></select>
+          </div>
+          <div class="table-scroll"><table class="data-table" id="table-q5"></table></div>
+          <div class="pagination" id="pg-q5"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q6 ============ -->
+      <section class="section" id="q6">
+        <div class="case-header"><span class="case-num">CASE 06</span><h2>What is the implied fraud tax silently borne by each customer segment per transaction — and are low-risk premium customers cross-subsidising high-risk segments?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>If premium accounts generate the lowest fraud rate but pay the same flat fees as high-risk segments, that's a pricing inequity and a churn risk. <strong>implied_fraud_tax_per_txn</strong> makes the argument with precision.</div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <div class="panel-title">Implied fraud tax vs. blended portfolio tax</div>
+            <div class="chart-wrap"><canvas id="chart-q6-tax"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Net dollar subsidy effect by segment</div>
+            <div class="chart-wrap"><canvas id="chart-q6-subsidy"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Full result set</div>
+          <div class="table-scroll"><table class="data-table" id="table-q6"></table></div>
+        </div>
+      </section>
+
+      <!-- ============ Q7 ============ -->
+      <section class="section" id="q7">
+        <div class="case-header"><span class="case-num">CASE 07</span><h2>What specific combination of time window, day type, device, geography, auth strength, and merchant category creates the perfect fraud attack window?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>The top row is the single biggest vulnerability, expressed as one sentence: at [time], on [day type], via [device], at [category], with no 2FA, foreign transactions succeed as fraud X% of the time. This is the attack recipe controls must close first.</div>
+
+        <div class="panel" style="margin-top:22px;">
+          <div class="panel-title">Top 25 highest-risk intersections, ranked by fraud success rate</div>
+          <div class="chart-wrap tall"><canvas id="chart-q7-bars"></canvas></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Full ranked table</div>
+          <div class="table-scroll"><table class="data-table" id="table-q7"></table></div>
+        </div>
+      </section>
+
+      <!-- ============ Q8 ============ -->
+      <section class="section" id="q8">
+        <div class="case-header"><span class="case-num">CASE 08</span><h2>How much of today's fraud loss was actually caused by yesterday's decision not to act on the ring's seed account?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span><strong>loss_after_response_window_missed</strong> is the direct dollar cost of investigation lag, per ring — a number a CFO can put next to a headcount request. Extends the Q5 contagion model with an actual dollar figure and a 5-day operational response window.</div>
+
+        <div class="kpi-row" id="q8-kpis" style="margin-top:22px;"></div>
+
+        <div class="panel">
+          <div class="panel-title">Top 20 rings by preventable loss — within vs. after the 5-day response window</div>
+          <div class="chart-wrap tall"><canvas id="chart-q8-stacked"></canvas></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">All 200 rings</div>
+          <div class="table-toolbar">
+            <input class="search-input" id="q8-search" placeholder="Search ring or seed account…">
+          </div>
+          <div class="table-scroll"><table class="data-table" id="table-q8"></table></div>
+          <div class="pagination" id="pg-q8"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q9 ============ -->
+      <section class="section" id="q9">
+        <div class="case-header"><span class="case-num">CASE 09</span><h2>Which accounts were drifting toward fraud behaviour before their first confirmed fraudulent transaction?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>Splits each eventual fraudster's clean pre-fraud history into an early half and late half, checking whether risk signals rose. Accounts flagged here are the pre-crime queue — candidates for proactive review before the first loss event, not after.</div>
+
+        <div class="kpi-row" id="q9-kpis" style="margin-top:22px;"></div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">Drift signal count distribution</div>
+            <div class="chart-wrap"><canvas id="chart-q9-signals"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">IP-risk drift vs. velocity drift</div>
+            <div class="chart-wrap"><canvas id="chart-q9-scatter"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Pre-crime queue — 6,200 flagged accounts</div>
+          <div class="table-toolbar">
+            <input class="search-input" id="q9-search" placeholder="Search account ID…">
+            <select class="select-input" id="q9-signal-filter"></select>
+          </div>
+          <div class="table-scroll"><table class="data-table" id="table-q9"></table></div>
+          <div class="pagination" id="pg-q9"></div>
+        </div>
+      </section>
+
+      <!-- ============ Q10 ============ -->
+      <section class="section" id="q10">
+        <div class="case-header"><span class="case-num">CASE 10</span><h2>Which fraud pattern is quietly teaching every other pattern how to evolve?</h2></div>
+        <div class="insight-box"><span class="k">Business insight</span>Compares each pattern's yearly behavioural fingerprint (z-scored) to every other pattern's fingerprint one year later, flagging a match only above a similarity threshold, then counts how often each pattern repeats as the closest predecessor. Correlation-in-time, not proof of causation — a lead worth investigating, not a verdict.</div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <div class="panel-title">Times flagged as behavioural predecessor</div>
+            <div class="chart-wrap"><canvas id="chart-q10-bars"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Behavioural distance vs. cohort median</div>
+            <div class="chart-wrap"><canvas id="chart-q10-scatter"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Full result set</div>
+          <div class="table-scroll"><table class="data-table" id="table-q10"></table></div>
+          <div class="footnote">Behavioural distance is a z-scored Euclidean measure across attack fingerprint metrics. A "repeat donor" match means the same pattern pair recurs as predecessor→successor across multiple years — a signal worth investigating, not proof of causation.</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

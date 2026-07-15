@@ -1,0 +1,8 @@
+"fraud_pattern","total_fraud_txns","total_loss","avg_loss_per_attack","share_of_fraud_volume","share_of_fraud_loss","attack_speed","pct_card_not_present","pct_foreign","resource_efficiency_gap","control_efficiency_verdict"
+"account_takeover","3432","4129144.46","1203.13","20.02","32.99","3.9600","74.24","59.64","12.97","🔴 UNDER-POLICED — Bleeding silently"
+"identity_theft","656","763253.67","1163.50","3.83","6.10","3.9300","75.30","57.62","2.27","🟢 Balanced"
+"card_not_present","5982","4616806.56","771.78","34.89","36.89","3.9800","73.12","58.06","2.00","🟢 Balanced"
+"atm_fraud","1216","566971.58","466.26","7.09","4.53","4.0400","76.23","60.44","-2.56","🟢 Balanced"
+"card_present_stolen","3120","1737328.15","556.84","18.20","13.88","3.9500","73.17","57.24","-4.32","🟢 Balanced"
+"money_laundering","1011","94619.32","93.59","5.90","0.76","3.9700","72.21","60.63","-5.14","🟡 OVER-POLICED — Wasting resources"
+"friendly_fraud","1726","608610.35","352.61","10.07","4.86","3.9300","74.68","55.97","-5.21","🟡 OVER-POLICED — Wasting resources"

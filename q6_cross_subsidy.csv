@@ -1,0 +1,4 @@
+"account_type","total_accounts","total_txns","fraud_txns","fraud_rate_pct","fraud_loss","share_of_total_fraud_loss","fraud_cost_per_account","avg_risk_score","implied_fraud_tax_per_txn","blended_portfolio_fraud_tax_per_txn","subsidy_gap_per_txn","net_dollar_subsidy_effect","cross_subsidy_verdict"
+"premium","4944","99422","1618","1.63","1105843.31","8.83","223.67","20.02","11.1227","12.5167","1.3940","138594.27","💚 SUBSIDISING — pays more than its own risk warrants under flat pricing"
+"business","9972","197218","3463","1.76","2415375.91","19.30","242.22","19.85","12.2472","12.5167","0.2695","53150.25","💚 SUBSIDISING — pays more than its own risk warrants under flat pricing"
+"personal","34987","703360","12062","1.71","8995514.87","71.87","257.11","19.88","12.7893","12.5167","-0.2726","-191735.94","🟡 Roughly priced in line with its own risk"
