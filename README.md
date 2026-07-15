@@ -1,5 +1,9 @@
 # Fraud Intel — SQL Case File Dashboard
 
+[![SQL](https://img.shields.io/badge/SQL-PostgreSQL-336791?logo=postgresql&logoColor=white)](#whats-inside)
+[![JS](https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS-F7DF1E?logo=javascript&logoColor=black)](#whats-inside)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Fraud%20Intel%20Case%20File-black?logo=githubpages&logoColor=white)](https://aakritibalachandran.github.io/nexabank-fraud-intelligence-suite/)
+
 A dark, "security operations" style dashboard that showcases 10 SQL fraud-analytics
 queries (`FRAUD_ANALYTICS.sql`) as an interactive, filterable website — KPI cards,
 charts, and full searchable/sortable/paginated tables for every query, plus a global
@@ -7,10 +11,59 @@ filter across the 7 fraud types (`account_takeover`, `card_not_present`,
 `card_present_stolen`, `friendly_fraud`, `atm_fraud`, `money_laundering`,
 `identity_theft`).
 
+🔗 **[Launch the Live Dashboard →](https://aakritibalachandran.github.io/nexabank-fraud-intelligence-suite/)**
+
 It's a **static site** — plain HTML/CSS/JS, no build step, no framework. It reads
 the query-output CSVs directly at runtime (via [PapaParse](https://www.papaparse.com/))
 and renders charts with [Chart.js](https://www.chartjs.org/). Both are loaded from a
 CDN, so you need an internet connection the first time each browser session loads it.
+
+---
+
+## 📑 Table of Contents
+
+- [Live Dashboard](#-live-dashboard)
+- [Run it on your MacBook with VS Code](#run-it-on-your-macbook-with-vs-code)
+- [What's inside](#whats-inside)
+- [Sections](#sections)
+- [Customizing](#customizing)
+
+---
+
+## 🖥️ Live Dashboard
+
+**[aakritibalachandran.github.io/nexabank-fraud-intelligence-suite](https://aakritibalachandran.github.io/nexabank-fraud-intelligence-suite/)**
+
+The 10 SQL queries in `FRAUD_ANALYTICS.sql` are published as an interactive
+**"Fraud Intel" case file** — built on 1,000,000 transactions across 50,000 accounts
+(2022–2024), covering resourcing, contagion speed, cross-subsidy, and early-warning
+signals across all 7 fraud patterns.
+
+<!--
+📸 Add screenshots here — export a few key screens from the live dashboard
+(Overview, a chart-heavy query like Q5 Ring Contagion, and a data table like Q3)
+and drop the image files into an `assets/` folder in this repo, then update the
+paths below. GitHub renders these inline once the files exist in the repo.
+
+![Overview — portfolio KPIs, loss-share donut, attack heatmap](assets/screenshot-overview.png)
+![Case 05 — Ring Contagion, spread speed and response priority](assets/screenshot-q5-ring-contagion.png)
+![Case 03 — Synthetic Identity, 50,000 scored accounts](assets/screenshot-q3-synthetic-identity.png)
+-->
+
+**Key features:**
+- **Overview briefing** — portfolio KPIs, fraud loss-share donut, hour × day-of-week
+  attack heatmap, fraud pattern reference table, and a jump-to-query index
+- **10 case queries (Q1–Q10)**, each with a business-insight callout, one or more
+  charts, and a full searchable/sortable/paginated result table
+- **Global fraud-type filter** — narrows Overview, Q1, Q2, and Q10 to a single
+  pattern at a time
+- Renders entirely client-side from the query-output CSVs — no backend, no database
+  connection needed to explore the results
+
+The dashboard is a lightweight, dependency-free way to explore the same analysis in
+`FRAUD_ANALYTICS.sql` without running PostgreSQL locally.
+
+---
 
 ## Run it on your MacBook with VS Code
 
@@ -52,6 +105,9 @@ data/                  The 10 query-output CSVs + fraud_patterns.csv + a small
 FRAUD_ANALYTICS.sql    Your original SQL, included for reference (not used at runtime)
 ```
 
+> The live dashboard above is hosted separately via GitHub Pages, built on this
+> same `index.html` / `css` / `js` / `data` structure.
+
 ## Sections
 
 - **Overview** — portfolio KPIs, loss-share donut, hour × day-of-week attack heatmap,
@@ -78,3 +134,12 @@ sections (the queries with a `fraud_pattern` dimension) to a single pattern at a
   (`FRAUD_COLORS`, `VERDICT_COLORS`).
 - To swap in fresh query output, just replace the matching CSV in `data/` — the
   column names must stay the same, since `js/app.js` reads specific keys.
+
+---
+
+## 👤 Author
+
+**Aakriti Balachandran**
+🔗 [GitHub](https://github.com/AakritiBalachandran)
+🌐 [Live Dashboard](https://aakritibalachandran.github.io/nexabank-fraud-intelligence-suite/)
+✉️ aakriti.9703@gmail.com
